@@ -1,18 +1,23 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Lab2_37
+namespace Labs
 {
-    public class Program
+    internal static class Lab2
     {
-        public static string InputFilePath = "input.txt";
-        public static string OutputFilePath = "output.txt";
-        static void Main(string[] args)
+        public static void Execute(string path)
         {
-            if (!File.Exists(InputFilePath))
+            var inputPath = Path.Combine(path, Resources.InputFileName);
+            var outputPath = Path.Combine(path, Resources.OutputFileName);
+            if (!File.Exists(inputPath))
             {
-                throw new FileNotFoundException("File with data not found!", InputFilePath);
+                throw new FileNotFoundException("File with data not found!", inputPath);
             }
-            List<string> inputData = File.ReadLines(InputFilePath).ToList();
+            List<string> inputData = File.ReadLines(inputPath).ToList();
             if (inputData.Count == 0)
             {
                 throw new Exception("File with data is empty");
@@ -24,7 +29,7 @@ namespace Lab2_37
             }
             var rowBoolFunk = inputData[1].Select(x => Convert.ToInt32(x.ToString())).ToList();
             int[,] boolFunk = { { rowBoolFunk[0], rowBoolFunk[1] }, { rowBoolFunk[2], rowBoolFunk[3] } };
-            FileInfo outputFileInfo = new FileInfo(OutputFilePath);
+            FileInfo outputFileInfo = new FileInfo(outputPath);
             using (StreamWriter streamWriter = outputFileInfo.CreateText())
             {
                 var res = GetResult(numberOfResDigits, boolFunk);
@@ -38,7 +43,7 @@ namespace Lab2_37
             for (int i = 0; i < 2; i++)
             {
                 info.Add(new List<Info>());
-                for(int j = 0; j <= n; j++)
+                for (int j = 0; j <= n; j++)
                 {
                     info[i].Add(new Info());
                 }
@@ -57,7 +62,7 @@ namespace Lab2_37
                         int nOnes = info[prevResult][len - 1].nOnes + lastDigit;
                         if (!info[result][len].possible || nOnes > info[result][len].nOnes)
                         {
-                            info[result][len] = new Info() { possible = true, nOnes = nOnes, lastDigit = lastDigit, prevResult = prevResult};
+                            info[result][len] = new Info() { possible = true, nOnes = nOnes, lastDigit = lastDigit, prevResult = prevResult };
                         }
                     }
                 }
@@ -77,6 +82,14 @@ namespace Lab2_37
                 }
                 return sb.ToString();
             }
+        }
+
+        private class Info
+        {
+            public bool possible { get; set; } = false;
+            public int nOnes { get; set; } = 0;
+            public int lastDigit { get; set; } = -1;
+            public int prevResult { get; set; } = -1;
         }
     }
 }
