@@ -1,0 +1,37 @@
+﻿@model Lab5.Models.Lab1DataModel
+
+@{
+    ViewData["Title"] = "Lab1";
+}
+
+<h2>Exchange Rate Analysis</h2>
+<p>Enter the exchange rates for dollars and euros for each day. Each line should contain two numbers separated by a space: the dollar rate and the euro rate.</p>
+
+<form method="post" asp-controller="Labs" asp-action="Lab1">
+    <div class="form-group">
+        <label for="rates">Enter Rates:</label>
+        <textarea class="form-control" id="rates" asp-for="RatesInput" rows="4"></textarea>
+        <small class="form-text text-muted">Format: Each line should have two numbers (e.g., 1.23 4.56)</small>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Analyze</button>
+</form>
+
+<text> &nbsp; &nbsp; &nbsp;</text>
+
+@if (Model != null)
+{
+    <div class="container mt-5">
+        @if (!string.IsNullOrEmpty(Model.ErrorValue))
+        {
+            <div class="alert alert-danger" role="alert">
+                @Model.ErrorValue
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.Calculated))
+        {
+            <div class="form-group">
+                <h3 class="control-label">Result: @Model.Calculated</h3>
+            </div>
+        }
+    </div>
+}

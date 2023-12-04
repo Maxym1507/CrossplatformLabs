@@ -1,0 +1,28 @@
+﻿@model UserProfileModel
+@{
+	ViewBag.Title = "Info";
+}
+<h2>@ViewBag.Title</h2>
+@if (Model != null)
+{
+	<form>
+		<b>User Name:</b>
+
+		<div class="form-group">
+			<label for="name">@Model.UserName</label>
+		</div>
+
+		<b>User Email:</b>
+		<div class="form-group">
+			<label for="email"> @Model.Email</label>
+		</div>
+
+
+		<b>Email of user is Verified:</b>
+
+		<div class="form-group">
+			<label for="emailVerified">@Model.EmailVerified</label>
+		</div>
+
+	</form>
+}

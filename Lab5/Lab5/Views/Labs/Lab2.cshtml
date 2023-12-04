@@ -1,0 +1,38 @@
+﻿@model Lab5.Models.Lab2DataModel
+
+@{
+    ViewData["Title"] = "Lab2";
+}
+
+<h2>Boolean Function Analysis</h2>
+<p>Enter the number of result digits and the boolean function in binary format (4 digits).</p>
+
+<form method="post" asp-controller="Labs" asp-action="Lab2">
+    <div class="form-group">
+        <label for="numberOfResDigits">Number of Result Digits:</label>
+        <input type="number" class="form-control" id="numberOfResDigits" asp-for="NumberOfResDigits">
+    </div>
+    <div class="form-group">
+        <label for="boolFunk">Boolean Function:</label>
+        <input type="text" class="form-control" id="boolFunk" asp-for="BoolFunk">
+        <small class="form-text text-muted">Enter 4 binary digits (e.g., 0110)</small>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Analyze</button>
+</form>
+
+@if (Model != null)
+{
+    @if (!string.IsNullOrEmpty(Model.ErrorValue))
+    {
+        <div class="alert alert-danger" role="alert">
+            @Model.ErrorValue
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.Calculated))
+    {
+        <div class="alert alert-success">
+            <strong>Result:</strong> @Model.Calculated
+        </div>
+    }
+}

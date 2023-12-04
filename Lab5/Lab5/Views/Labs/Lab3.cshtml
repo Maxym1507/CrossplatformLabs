@@ -1,0 +1,41 @@
+﻿@model Lab5.Models.Lab3DataModel
+
+@{
+    ViewData["Title"] = "Lab3";
+}
+
+<h2>Engine Parts Manufacturing Time Analysis</h2>
+
+<form method="post" asp-controller="Labs" asp-action="Lab3">
+    <div class="form-group">
+        <label for="time">Time for Each Part:</label>
+        <input type="text" class="form-control" id="time" asp-for="Time">
+        <small class="form-text text-muted">Enter time separated by spaces (e.g., 100 200 300)</small>
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="parts">Parts for Each Detail:</label>
+        <textarea class="form-control" id="parts" asp-for="Parts" rows="5"></textarea>
+        <small class="form-text text-muted">Enter parts for each detail, each detail on new line.</small>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Analyze</button>
+</form>
+
+@if (Model != null)
+{
+    @if (!string.IsNullOrEmpty(Model.ErrorValue))
+    {
+        <div class="alert alert-danger" role="alert">
+            @Model.ErrorValue
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.Calculated))
+    {
+        <div class="alert alert-success">
+            <strong>Result:</strong>
+            <br />
+            @Html.Raw(Model.Calculated.Replace("\n", "<br />"))
+        </div>
+    }
+}
