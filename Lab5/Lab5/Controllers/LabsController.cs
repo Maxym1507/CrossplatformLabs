@@ -8,11 +8,6 @@ namespace Lab5.Controllers
 {
     public class LabsController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         public IActionResult Lab1()
         {
             if (User.Identity.IsAuthenticated)
@@ -94,7 +89,6 @@ namespace Lab5.Controllers
         [HttpPost]
         public IActionResult Lab3(Lab3DataModel model)
         {
-            var test = ParsePartes(model.Parts);
             var labRunner = new L3Manager(model.Time.Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(t => Convert.ToInt32(t)).ToList(), ParsePartes(model.Parts));
 
             try
