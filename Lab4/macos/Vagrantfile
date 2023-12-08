@@ -1,0 +1,10 @@
+Vagrant.configure("2") do |config|
+  
+  config.vm.box = "yzgyyang/macOS-10.14"
+  
+  config.vm.provider "virtualbox" do |vb|
+     vb.gui = false
+     vb.memory = "1024"
+     vb.name = "MaxSM_macos"
+  end
+end
